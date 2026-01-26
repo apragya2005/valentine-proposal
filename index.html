@@ -79,9 +79,37 @@ img {
   z-index: 999;
 }
 </style>
+#heart-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99999;
+}
+
+.heart {
+  position: absolute;
+  bottom: -20px;
+  font-size: 28px;
+  animation: floatUp 6s linear forwards;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120vh);
+    opacity: 0;
+  }
+}
 </head>
 
 <body>
+<div id="heart-container"></div>
 
 <!-- MUSIC -->
 <audio id="bgMusic" loop>
@@ -142,14 +170,21 @@ function nextPage(num) {
 }
 
 function showHearts() {
+  const container = document.getElementById("heart-container");
+
   for (let i = 0; i < 30; i++) {
-    let heart = document.createElement('div');
-    heart.className = 'heart';
-    heart.innerHTML = '💖';
-    heart.style.left = Math.random() * 100 + 'vw';
-    heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 5000);
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 2 + 4) + "s";
+
+    container.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 6000);
   }
 }
 
