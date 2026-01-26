@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Valentine 💖</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ff4f9a, #ffd1e8);
+  color: #7a0030;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+.page {
+  display: none;
+  min-height: 100vh;
+  padding: 30px 15px;
+}
+.page.active { display: block; }
+
+h1 { font-size: 2em; }
+p { font-size: 1.05em; max-width: 90%; margin: auto; }
+
+button {
+  background: #ff2f92;
+  border: none;
+  padding: 14px 26px;
+  margin: 12px;
+  font-size: 17px;
+  color: white;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+}
+
+.no-btn {
+  position: absolute;
+  background: #ffc1dc;
+}
+
+img {
+  width: 90%;
+  max-width: 260px;
+  border-radius: 20px;
+  margin: 15px auto;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.heart {
+  position: fixed;
+  font-size: 22px;
+  animation: float 5s linear infinite;
+}
+@keyframes float {
+  from { transform: translateY(100vh); opacity: 1; }
+  to { transform: translateY(-10vh); opacity: 0; }
+}
+
+#musicText {
+  display: none;
+  position: fixed;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 47, 146, 0.9);
+  color: white;
+  padding: 8px 18px;
+  border-radius: 25px;
+  font-size: 14px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  z-index: 999;
+}
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="tum-mile.mp3" type="audio/mpeg">
+</audio>
+<div id="musicText">🎵 Playing: Tum Mile 💕</div>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+  <h1>Will You Be My Valentine? 💕</h1>
+  <p>You make my world brighter every single day 💖</p>
+  <button onclick="startLove()">YES 💘</button>
+  <button class="no-btn" id="noBtn">NO 🙈</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+  <h1>My Dearest ❤️</h1>
+  <p>
+    Loving you feels like home.  
+    You are my calm, my happiness, and my forever.
+  </p>
+  <h3>Yes, I know you will accept 💖<br>— from your Betuu 🥺💕</h3>
+  <button onclick="nextPage(3)">Surprise 🎁</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+  <h1>Our Memories 💑</h1>
+  <div id="photos"></div>
+  <button onclick="showPhotos()">More Love 💞</button>
+  <button onclick="nextPage(4)">Message 💌</button>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="page4">
+  <h1>I LOVE YOU THE MOST ♥️💖</h1>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseover", () => {
+  noBtn.style.left = Math.random() * 70 + "vw";
+  noBtn.style.top = Math.random() * 70 + "vh";
+});
+
+function startLove() {
+  document.getElementById("bgMusic").play();
+  document.getElementById("musicText").style.display = "block";
+  nextPage(2);
+}
+
+function nextPage(num) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page' + num).classList.add('active');
+  showHearts();
+}
+
+function showHearts() {
+  for (let i = 0; i < 30; i++) {
+    let heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.innerHTML = '💖';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }
+}
+
+let shown = 0;
+function showPhotos() {
+  const imgs = ['photo1.jpg','photo2.jpg','photo3.jpg','photo4.jpg'];
+  if (shown >= imgs.length) return;
+  let img = document.createElement('img');
+  img.src = imgs[shown];
+  document.getElementById("photos").appendChild(img);
+  shown++;
+}
+</script>
+
+</body>
+</html>
